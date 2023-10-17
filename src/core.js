@@ -140,21 +140,18 @@ function sequence(start = 0, step = 1) {
  * deepEqual({arr: [22, 33], text: 'text'}, {arr: [22, 3], text: 'text2'}) // false
  */
 function deepEqual(firstObject, secondObject) {
-    if (firstObject === null && secondObject === null) {
-        return true;
-    } else if (firstObject === undefined && secondObject === undefined) {
-        return true;
-    } else if (Number.isNaN(firstObject) && Number.isNaN(secondObject)) {
-        return true;
-    } else if (firstObject === null || secondObject === null) {
-        return false;
-    } else if (firstObject === undefined || secondObject === undefined) {
-        return false;
-    } else if (Number.isNaN(firstObject) || Number.isNaN(secondObject)) {
+    if (typeof firstObject !== typeof secondObject) {
         return false;
     }
-
-    if (typeof firstObject !== 'object' && typeof secondObject !== 'object') {
+    if (
+        firstObject === null ||
+        secondObject === null ||
+        typeof firstObject !== 'object' ||
+        typeof secondObject !== 'object'
+    ) {
+        if (Number.isNaN(firstObject) && Number.isNaN(secondObject)) {
+            return true;
+        }
         return firstObject === secondObject;
     }
 
